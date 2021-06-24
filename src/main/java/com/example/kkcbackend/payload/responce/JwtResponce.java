@@ -7,14 +7,18 @@ import java.util.Set;
 public class JwtResponce implements Serializable {
     private static final long serialVersionUID = -8091879091924046844L;
     private String jwttoken;
-    private String username;
+    private String userName;
     private String password;
+    private Long projectId;
+    private String clusterName;
     private List<String> role;
 
-    public JwtResponce(String jwttoken, String username, String password, List<String> role) {
+    public JwtResponce(String jwttoken, String userName, String password, Long projectId, String clusterName, List<String> role) {
         this.jwttoken = jwttoken;
-        this.username = username;
+        this.userName = userName;
         this.password = password;
+        this.projectId = projectId;
+        this.clusterName = clusterName;
         this.role = role;
     }
 
@@ -22,12 +26,20 @@ public class JwtResponce implements Serializable {
         return jwttoken;
     }
 
-    public String getUsername() {
-        return username;
+    public String getUserName() {
+        return userName;
     }
 
     public String getPassword() {
         return password;
+    }
+
+    public Long getProjectId() {
+        return projectId;
+    }
+
+    public String getClusterName() {
+        return clusterName;
     }
 
     public List<String> getRole() {

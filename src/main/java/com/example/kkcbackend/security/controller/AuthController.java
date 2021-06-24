@@ -58,6 +58,8 @@ public class AuthController {
             return ResponseEntity.ok(new JwtResponce(jwt,
                     adminDetails.getUsername(),
                     adminDetails.getPassword(),
+                    adminDetails.getProjectId(),
+                    adminDetails.getClusterName(),
                     roles));
         }
         else {
@@ -70,6 +72,8 @@ public class AuthController {
             return ResponseEntity.ok(new JwtResponce(jwt,
                     workerDetails.getUsername(),
                     workerDetails.getPassword(),
+                    workerDetails.getProjectId(),
+                    workerDetails.getClusterName(),
                     roles));
         }
 
