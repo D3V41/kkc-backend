@@ -43,12 +43,13 @@ public class AuthController {
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
-        String jwt = jwtUtils.generateAdminJwtToken(authentication);
 
 
         User u = myUserDetailsService.findByUsername(l.getUsername());
 
         if(u.getEditAccess()){
+            String jwt = jwtUtils.generateAdminJwtToken(authentication);
+
             AdminDetails adminDetails = (AdminDetails) authentication.getPrincipal();
 
             List<String> roles = adminDetails.getAuthorities().stream()
@@ -57,12 +58,13 @@ public class AuthController {
 
             return ResponseEntity.ok(new JwtResponce(jwt,
                     adminDetails.getUsername(),
-                    adminDetails.getPassword(),
                     adminDetails.getProjectId(),
                     adminDetails.getClusterName(),
                     roles));
         }
         else {
+            String jwt = jwtUtils.generateWorkerJwtToken(authentication);
+
             WorkerDetails workerDetails = (WorkerDetails) authentication.getPrincipal();
 
             List<String> roles = workerDetails.getAuthorities().stream()
@@ -71,7 +73,6 @@ public class AuthController {
 
             return ResponseEntity.ok(new JwtResponce(jwt,
                     workerDetails.getUsername(),
-                    workerDetails.getPassword(),
                     workerDetails.getProjectId(),
                     workerDetails.getClusterName(),
                     roles));

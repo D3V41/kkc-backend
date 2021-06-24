@@ -1,5 +1,7 @@
 package com.example.kkcbackend.security.jwt;
 
+import com.example.kkcbackend.security.model.AdminDetails;
+import com.example.kkcbackend.security.model.WorkerDetails;
 import io.jsonwebtoken.*;
 import org.apache.tomcat.util.json.JSONParser;
 import org.slf4j.Logger;
@@ -24,18 +26,31 @@ public class JwtUtils {
 
     public String generateAdminJwtToken(Authentication authentication) {
 
-        UserDetails userPrincipal = (UserDetails) authentication.getPrincipal();
+        AdminDetails userPrincipal = (AdminDetails) authentication.getPrincipal();
 
 
         return Jwts.builder()
-                .setSubject((userPrincipal.toString()))
-                .setIssuedAt(new Date())
-                .setExpiration(java.sql.Date.valueOf(LocalDate.now().plusDays(1)))
+                .claim("userName",userPrincipal.getUsername())
+                .claim("clusterName",userPrincipal.getClusterName())
+                .claim("projectId",userPrincipal.getProjectId())
                 .signWith(SignatureAlgorithm.HS512, jwtSecret)
                 .compact();
     }
 
-    public String getAdminIdFromJwtToken(String token) {
+    public String generateWorkerJwtToken(Authentication authentication) {
+
+        WorkerDetails userPrincipal = (WorkerDetails) authentication.getPrincipal();
+
+
+        return Jwts.builder()
+                .claim("userName",userPrincipal.getUsername())
+                .claim("clusterName",userPrincipal.getClusterName())
+                .claim("projectId",userPrincipal.getProjectId())
+                .signWith(SignatureAlgorithm.HS512, jwtSecret)
+                .compact();
+    }
+
+    public String getUserIdFromJwtToken(String token) {
         return Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token).getBody().getSubject();
     }
 

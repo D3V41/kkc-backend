@@ -13,10 +13,9 @@ public class JwtResponce implements Serializable {
     private String clusterName;
     private List<String> role;
 
-    public JwtResponce(String jwttoken, String userName, String password, Long projectId, String clusterName, List<String> role) {
+    public JwtResponce(String jwttoken, String userName, Long projectId, String clusterName, List<String> role) {
         this.jwttoken = jwttoken;
         this.userName = userName;
-        this.password = password;
         this.projectId = projectId;
         this.clusterName = clusterName;
         this.role = role;
