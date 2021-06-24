@@ -21,11 +21,11 @@ public class WorkerDetails implements UserDetails {
         this.authorities = authorities;
     }
 
-    public static AdminDetails build(User user){
+    public static WorkerDetails build(User user){
         Set<GrantedAuthority> authorities = new HashSet<>();
         authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
 
-        return new AdminDetails(
+        return new WorkerDetails(
                 user.getUserName(),
                 user.getPassword(),
                 authorities);
