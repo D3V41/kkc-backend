@@ -47,6 +47,14 @@ public class AdminDetails implements UserDetails {
     }
 
     @Override
+    public String toString() {
+        return "{" +
+                "'projectId':" + projectId +
+                ", 'userName':'" + userName + '\'' +
+                ", 'clusterName':'" + clusterName + '\''+"}";
+    }
+
+    @Override
     public Set<GrantedAuthority> getAuthorities() {
         return authorities;
     }

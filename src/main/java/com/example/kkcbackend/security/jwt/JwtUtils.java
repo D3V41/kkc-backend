@@ -25,7 +25,6 @@ public class JwtUtils {
 
         UserDetails userPrincipal = (UserDetails) authentication.getPrincipal();
 
-        System.out.printf("\n\n\n\n"+userPrincipal.toString()+"\n\n\n\n");
         return Jwts.builder()
                 .setSubject(userPrincipal.toString())
                 .setIssuedAt(new Date())
