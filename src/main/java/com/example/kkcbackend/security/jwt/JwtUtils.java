@@ -1,6 +1,7 @@
 package com.example.kkcbackend.security.jwt;
 
 import io.jsonwebtoken.*;
+import org.apache.tomcat.util.json.JSONParser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -25,8 +26,9 @@ public class JwtUtils {
 
         UserDetails userPrincipal = (UserDetails) authentication.getPrincipal();
 
+
         return Jwts.builder()
-                .setSubject(userPrincipal.toString())
+                .setSubject((userPrincipal.toString()))
                 .setIssuedAt(new Date())
                 .setExpiration(java.sql.Date.valueOf(LocalDate.now().plusDays(1)))
                 .signWith(SignatureAlgorithm.HS512, jwtSecret)
