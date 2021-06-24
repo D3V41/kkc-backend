@@ -11,13 +11,17 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 
 public class WorkerDetails implements UserDetails {
+    private Long projectId;
     private String userName;
     private String userPassword;
+    private String clusterName;
     private Set<GrantedAuthority> authorities;
 
-    public WorkerDetails(String userName, String userPassword, Set<GrantedAuthority> authorities) {
+    public WorkerDetails(Long projectId, String userName, String userPassword, String clusterName, Set<GrantedAuthority> authorities) {
+        this.projectId = projectId;
         this.userName = userName;
         this.userPassword = userPassword;
+        this.clusterName = clusterName;
         this.authorities = authorities;
     }
 
@@ -26,10 +30,28 @@ public class WorkerDetails implements UserDetails {
         authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
 
         return new WorkerDetails(
+                user.getProjectId(),
                 user.getUserName(),
                 user.getPassword(),
+                user.getClusterName(),
                 authorities);
 
+    }
+
+    public Long getProjectId() {
+        return projectId;
+    }
+
+    public String getClusterName() {
+        return clusterName;
+    }
+
+    @Override
+    public String toString() {
+        return "{" +
+                "'projectId':" + projectId +
+                ", 'userName':'" + userName + '\'' +
+                ", 'clusterName':'" + clusterName + '\''+"}";
     }
 
     @Override

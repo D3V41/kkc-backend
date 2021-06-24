@@ -11,13 +11,17 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 
 public class AdminDetails implements UserDetails {
+    private Long projectId;
     private String userName;
     private String userPassword;
+    private String clusterName;
     private Set<GrantedAuthority> authorities;
 
-    public AdminDetails(String userName, String userPassword, Set<GrantedAuthority> authorities) {
+    public AdminDetails(Long projectId, String userName, String userPassword, String clusterName, Set<GrantedAuthority> authorities) {
+        this.projectId = projectId;
         this.userName = userName;
         this.userPassword = userPassword;
+        this.clusterName = clusterName;
         this.authorities = authorities;
     }
 
@@ -26,10 +30,20 @@ public class AdminDetails implements UserDetails {
         authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
 
         return new AdminDetails(
+                user.getProjectId(),
                 user.getUserName(),
                 user.getPassword(),
+                user.getClusterName(),
                 authorities);
 
+    }
+
+    public Long getProjectId() {
+        return projectId;
+    }
+
+    public String getClusterName() {
+        return clusterName;
     }
 
     @Override

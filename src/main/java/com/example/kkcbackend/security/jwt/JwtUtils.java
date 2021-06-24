@@ -25,8 +25,9 @@ public class JwtUtils {
 
         UserDetails userPrincipal = (UserDetails) authentication.getPrincipal();
 
+        System.out.printf("\n\n\n\n"+userPrincipal.toString()+"\n\n\n\n");
         return Jwts.builder()
-                .setSubject((userPrincipal.getUsername()))
+                .setSubject(userPrincipal.toString())
                 .setIssuedAt(new Date())
                 .setExpiration(java.sql.Date.valueOf(LocalDate.now().plusDays(1)))
                 .signWith(SignatureAlgorithm.HS512, jwtSecret)
