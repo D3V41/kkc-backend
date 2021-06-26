@@ -8,6 +8,7 @@ import com.example.kkcbackend.security.model.AdminDetails;
 import com.example.kkcbackend.security.model.WorkerDetails;
 import com.example.kkcbackend.security.service.MyUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.lang.NonNull;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -45,39 +46,41 @@ public class AuthController {
 
 
 
-        User u = myUserDetailsService.findByUsername(l.getUsername());
+        User u = myUserDetailsService.findUser(l.getUsername(),l.getClusterName(),l.getProjectId());
 
-        if(u.getEditAccess()){
-            String jwt = jwtUtils.generateAdminJwtToken(authentication);
+        if(u != null) {
+            if (u.getEditAccess()) {
+                String jwt = jwtUtils.generateAdminJwtToken(authentication);
 
-            AdminDetails adminDetails = (AdminDetails) authentication.getPrincipal();
+                AdminDetails adminDetails = (AdminDetails) authentication.getPrincipal();
 
-            List<String> roles = adminDetails.getAuthorities().stream()
-                    .map(GrantedAuthority::getAuthority)
-                    .collect(Collectors.toList());
+                List<String> roles = adminDetails.getAuthorities().stream()
+                        .map(GrantedAuthority::getAuthority)
+                        .collect(Collectors.toList());
 
-            return ResponseEntity.ok(new JwtResponce(jwt,
-                    adminDetails.getUsername(),
-                    adminDetails.getProjectId(),
-                    adminDetails.getClusterName(),
-                    roles));
+                return ResponseEntity.ok(new JwtResponce(jwt,
+                        adminDetails.getUsername(),
+                        adminDetails.getProjectId(),
+                        adminDetails.getClusterName(),
+                        roles));
+            } else if (!u.getEditAccess()) {
+                String jwt = jwtUtils.generateWorkerJwtToken(authentication);
+
+                WorkerDetails workerDetails = (WorkerDetails) authentication.getPrincipal();
+
+                List<String> roles = workerDetails.getAuthorities().stream()
+                        .map(GrantedAuthority::getAuthority)
+                        .collect(Collectors.toList());
+
+                return ResponseEntity.ok(new JwtResponce(jwt,
+                        workerDetails.getUsername(),
+                        workerDetails.getProjectId(),
+                        workerDetails.getClusterName(),
+                        roles));
+            }
         }
-        else {
-            String jwt = jwtUtils.generateWorkerJwtToken(authentication);
 
-            WorkerDetails workerDetails = (WorkerDetails) authentication.getPrincipal();
-
-            List<String> roles = workerDetails.getAuthorities().stream()
-                    .map(GrantedAuthority::getAuthority)
-                    .collect(Collectors.toList());
-
-            return ResponseEntity.ok(new JwtResponce(jwt,
-                    workerDetails.getUsername(),
-                    workerDetails.getProjectId(),
-                    workerDetails.getClusterName(),
-                    roles));
-        }
-
+        return new ResponseEntity<String>("Cluster name or project id is wrong",HttpStatus.UNAUTHORIZED);
     }
 
     @PostMapping("/signup")

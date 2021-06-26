@@ -42,5 +42,9 @@ public class MyUserDetailsService implements UserDetailsService {
         return userDao.findByUsername(userName).orElse(null);
     }
 
+    public User findUser(String userName,String clusterName,Long projectId){
+        return userDao.findUser(userName,clusterName,projectId).orElse(null);
+    }
+
 
 }
