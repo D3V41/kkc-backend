@@ -22,11 +22,15 @@ public class User {
     @NotNull
     private Boolean editAccess;
 
-    @NotNull
-    private Long projectId;
+//    @NotNull
+//    private Long projectId;
 
     @NotNull
     private String password;
+
+    @ManyToOne(fetch = FetchType.LAZY,optional = false)
+    @JoinColumn(name = "project_id",nullable = false)
+    private Project project;
 
     public User(Long id) {
         this.id = id;
@@ -35,13 +39,31 @@ public class User {
     public User() {
     }
 
-    public User(Long id, String userName, String clusterName, Boolean editAccess, Long projectId, String password) {
+//    public User(Long id, String userName, String clusterName, Boolean editAccess, Long projectId, String password) {
+//        this.id = id;
+//        this.userName = userName;
+//        this.clusterName = clusterName;
+//        this.editAccess = editAccess;
+//        this.projectId = projectId;
+//        this.password = password;
+//    }
+
+
+    public User(Long id, String userName, String clusterName, Boolean editAccess, String password, Project project) {
         this.id = id;
         this.userName = userName;
         this.clusterName = clusterName;
         this.editAccess = editAccess;
-        this.projectId = projectId;
         this.password = password;
+        this.project = project;
+    }
+
+    public Project getProject() {
+        return project;
+    }
+
+    public void setProject(Project project) {
+        this.project = project;
     }
 
     public Long getId() {
@@ -76,13 +98,13 @@ public class User {
         this.editAccess = editAccess;
     }
 
-    public Long getProjectId() {
-        return projectId;
-    }
-
-    public void setProjectId(Long projectId) {
-        this.projectId = projectId;
-    }
+//    public Long getProjectId() {
+//        return projectId;
+//    }
+//
+//    public void setProjectId(Long projectId) {
+//        this.projectId = projectId;
+//    }
 
     public String getPassword() {
         return password;
