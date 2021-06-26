@@ -49,8 +49,7 @@ public class User {
 //    }
 
 
-    public User(Long id, String userName, String clusterName, Boolean editAccess, String password, Project project) {
-        this.id = id;
+    public User( String userName, String clusterName, Boolean editAccess, String password, Project project) {
         this.userName = userName;
         this.clusterName = clusterName;
         this.editAccess = editAccess;
