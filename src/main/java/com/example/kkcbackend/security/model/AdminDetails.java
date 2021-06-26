@@ -30,7 +30,7 @@ public class AdminDetails implements UserDetails {
         authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
 
         return new AdminDetails(
-                user.getProjectId(),
+                user.getProject().getProjectId(),
                 user.getUserName(),
                 user.getPassword(),
                 user.getClusterName(),

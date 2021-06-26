@@ -30,7 +30,7 @@ public class WorkerDetails implements UserDetails {
         authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
 
         return new WorkerDetails(
-                user.getProjectId(),
+                user.getProject().getProjectId(),
                 user.getUserName(),
                 user.getPassword(),
                 user.getClusterName(),

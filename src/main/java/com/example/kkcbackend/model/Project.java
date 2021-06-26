@@ -15,10 +15,10 @@ public class Project {
     @NotNull
     private String projectName;
 
-    @OneToMany(mappedBy = "users",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "project",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     private List<User> users;
 
-    @OneToMany(mappedBy = "ulbs",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "project",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     private List<Ulb> ulbs;
 
     public Project(Long projectId, String projectName) {

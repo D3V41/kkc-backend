@@ -1,13 +1,8 @@
 package com.example.kkcbackend.payload.request;
 
-import com.example.kkcbackend.model.Project;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.sun.istack.NotNull;
-import org.springframework.lang.NonNull;
 
-import javax.validation.Valid;
-
-public class LoginRequest {
+public class SignUpRequest {
     @NotNull
     String userName;
     @NotNull
@@ -19,13 +14,13 @@ public class LoginRequest {
     @NotNull
     Boolean editAccess;
 
-    public LoginRequest(String userName, String password, String clusterName, Long projectId) {
+    public SignUpRequest(String userName, String password, String clusterName, Long projectId, Boolean editAccess) {
         this.userName = userName;
         this.password = password;
         this.clusterName = clusterName;
         this.projectId = projectId;
+        this.editAccess = editAccess;
     }
-
 
     public Boolean getEditAccess() {
         return editAccess;
