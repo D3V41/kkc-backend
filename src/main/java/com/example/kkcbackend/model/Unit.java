@@ -20,8 +20,12 @@ public class Unit {
     @NotNull
     private int unitId;
 
-    @NotNull
-    private String ulbName;
+    @ManyToOne(fetch = FetchType.LAZY,optional = false)
+    @JoinColumn(name = "uldName",nullable = false)
+    private Ulb ulb;
+
+//    @NotNull
+//    private String ulbName;
 
     @NotNull
     private String meterNo;
@@ -67,11 +71,11 @@ public class Unit {
         this.id = id;
     }
 
-    public Unit(Long id, int imei, int unitId, String ulbName, String meterNo, String clusterName, String roadName, float ledRating, float totalLoad, int noOfFixture, String typeOfLoad, int mobile, int phase, float latitude, float longitude, String commandMode) {
+    public Unit(Long id, int imei, int unitId, Ulb ulb, String meterNo, String clusterName, String roadName, float ledRating, float totalLoad, int noOfFixture, String typeOfLoad, int mobile, int phase, float latitude, float longitude, String commandMode) {
         this.id = id;
         this.imei = imei;
         this.unitId = unitId;
-        this.ulbName = ulbName;
+        this.ulb = ulb;
         this.meterNo = meterNo;
         this.clusterName = clusterName;
         this.roadName = roadName;
@@ -110,12 +114,12 @@ public class Unit {
         this.unitId = unitId;
     }
 
-    public String getUlbName() {
-        return ulbName;
+    public Ulb getUlbName() {
+        return ulb;
     }
 
-    public void setUlbName(String ulbName) {
-        this.ulbName = ulbName;
+    public void setUlbName(Ulb ulbName) {
+        this.ulb = ulbName;
     }
 
     public String getMeterNo() {
