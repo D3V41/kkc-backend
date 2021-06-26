@@ -88,4 +88,5 @@ public class AdminDetails implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
 }
