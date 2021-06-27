@@ -13,6 +13,7 @@ import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.Map;
 
 @Component
 public class JwtUtils {
@@ -50,9 +51,10 @@ public class JwtUtils {
                 .compact();
     }
 
-    public String getUserIdFromJwtToken(String token) {
-        return Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token).getBody().getSubject();
+    public Map<String, Object> getUserIdFromJwtToken(String token) {
+        return Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token).getBody();
     }
+
 
     public boolean validateJwtToken(String authToken) {
         try {

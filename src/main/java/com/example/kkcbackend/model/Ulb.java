@@ -36,6 +36,13 @@ public class Ulb {
         this.project = project;
     }
 
+    public Ulb(String ulbName, String clusterName, Project project, List<Unit> units) {
+        this.ulbName = ulbName;
+        this.clusterName = clusterName;
+        this.project = project;
+        this.units = units;
+    }
+
     public Long getUlbId() {
         return ulbId;
     }

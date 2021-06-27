@@ -1,6 +1,7 @@
 package com.example.kkcbackend.security.jwt;
 
 import com.example.kkcbackend.security.service.MyUserDetailsService;
+import io.jsonwebtoken.Claims;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Map;
 
 public class AuthTokenFilter extends OncePerRequestFilter {
     @Autowired
@@ -30,8 +32,9 @@ public class AuthTokenFilter extends OncePerRequestFilter {
         try{
             String userJwt = parseJwt(httpServletRequest);
             if(userJwt != null && jwtUtils.validateJwtToken(userJwt)){
-                String userId = jwtUtils.getUserIdFromJwtToken(userJwt);
-                UserDetails userDetails = myUserDetailsService.loadUserByUsername(userId);
+                Map claims = jwtUtils.getUserIdFromJwtToken(userJwt);
+                String username = (String) claims.get("userName");
+                UserDetails userDetails = myUserDetailsService.loadUserByUsername(username);
 
                 UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
                         userDetails,null,userDetails.getAuthorities());
