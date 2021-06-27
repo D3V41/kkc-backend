@@ -3,6 +3,7 @@ package com.example.kkcbackend.model;
 import com.sun.istack.NotNull;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "ulbs")
@@ -13,7 +14,7 @@ public class Ulb {
     private Long ulbId;
 
     @NotNull
-    private String uldName;
+    private String ulbName;
 
     @NotNull
     private String clusterName;
@@ -22,12 +23,15 @@ public class Ulb {
     @JoinColumn(name = "project_id",nullable = false)
     private Project project;
 
+    @OneToMany(mappedBy = "ulb",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    private List<Unit> units;
+
     public Ulb() {
     }
 
-    public Ulb(Long ulbId, String uldName, String clusterName, Project project) {
+    public Ulb(Long ulbId, String ulbName, String clusterName, Project project) {
         this.ulbId = ulbId;
-        this.uldName = uldName;
+        this.ulbName = ulbName;
         this.clusterName = clusterName;
         this.project = project;
     }
@@ -40,12 +44,12 @@ public class Ulb {
         this.ulbId = ulbId;
     }
 
-    public String getUldName() {
-        return uldName;
+    public String getUlbName() {
+        return ulbName;
     }
 
-    public void setUldName(String uldName) {
-        this.uldName = uldName;
+    public void setUlbName(String ulbName) {
+        this.ulbName = ulbName;
     }
 
     public String getClusterName() {

@@ -15,13 +15,13 @@ public class Unit {
 
     //Device Id
     @NotNull
-    private int imei;
+    private Long imei;
 
     @NotNull
     private int unitId;
 
     @ManyToOne(fetch = FetchType.LAZY,optional = false)
-    @JoinColumn(name = "uldName",nullable = false)
+    @JoinColumn(name = "ulb_name",nullable = false)
     private Ulb ulb;
 
 //    @NotNull
@@ -49,7 +49,7 @@ public class Unit {
     private String typeOfLoad;
 
     @NotNull
-    private int mobile;
+    private Long mobile;
 
     @NotNull
     private int phase;
@@ -71,7 +71,7 @@ public class Unit {
         this.id = id;
     }
 
-    public Unit(Long id, int imei, int unitId, Ulb ulb, String meterNo, String clusterName, String roadName, float ledRating, float totalLoad, int noOfFixture, String typeOfLoad, int mobile, int phase, float latitude, float longitude, String commandMode) {
+    public Unit(Long id, Long imei, int unitId, Ulb ulb, String meterNo, String clusterName, String roadName, float ledRating, float totalLoad, int noOfFixture, String typeOfLoad, Long mobile, int phase, float latitude, float longitude, String commandMode) {
         this.id = id;
         this.imei = imei;
         this.unitId = unitId;
@@ -98,13 +98,7 @@ public class Unit {
         this.id = id;
     }
 
-    public int getImei() {
-        return imei;
-    }
 
-    public void setImei(int imei) {
-        this.imei = imei;
-    }
 
     public int getUnitId() {
         return unitId;
@@ -178,11 +172,27 @@ public class Unit {
         this.typeOfLoad = typeOfLoad;
     }
 
-    public int getMobile() {
+    public Long getImei() {
+        return imei;
+    }
+
+    public void setImei(Long imei) {
+        this.imei = imei;
+    }
+
+    public Ulb getUlb() {
+        return ulb;
+    }
+
+    public void setUlb(Ulb ulb) {
+        this.ulb = ulb;
+    }
+
+    public Long getMobile() {
         return mobile;
     }
 
-    public void setMobile(int mobile) {
+    public void setMobile(Long mobile) {
         this.mobile = mobile;
     }
 
