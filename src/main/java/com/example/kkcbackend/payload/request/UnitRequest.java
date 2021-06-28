@@ -1,17 +1,11 @@
-package com.example.kkcbackend.model;
+package com.example.kkcbackend.payload.request;
 
+import com.example.kkcbackend.model.Ulb;
 import com.sun.istack.NotNull;
 
 import javax.persistence.*;
-import javax.validation.constraints.Size;
 
-@Entity
-@Table(name="units")
-public class Unit {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @NotNull
-    private Long id;
+public class UnitRequest {
 
     //Device Id
     @NotNull
@@ -20,12 +14,8 @@ public class Unit {
     @NotNull
     private int unitId;
 
-    @ManyToOne(fetch = FetchType.LAZY,optional = false)
-    @JoinColumn(name = "ulb_id",nullable = false)
-    private Ulb ulb;
-
-//    @NotNull
-//    private String ulbName;
+    @NotNull
+    private String ulbName;
 
     @NotNull
     private String meterNo;
@@ -63,22 +53,16 @@ public class Unit {
     @NotNull
     private String commandMode;
 
-
-    public Unit() {
+    public UnitRequest() {
     }
 
-    public Unit(Long id) {
-        this.id = id;
-    }
-
-    public Unit(Long id, Long imei, int unitId, Ulb ulb, String meterNo, String clusterName,
-                String roadName, float ledRating, float totalLoad, int noOfFixture,
-                String typeOfLoad, Long mobile, int phase, float latitude, float longitude,
-                String commandMode) {
-        this.id = id;
+    public UnitRequest(Long imei, int unitId, String ulbName, String meterNo, String clusterName,
+                       String roadName, float ledRating, float totalLoad, int noOfFixture,
+                       String typeOfLoad, Long mobile, int phase, float latitude, float longitude,
+                       String commandMode) {
         this.imei = imei;
         this.unitId = unitId;
-        this.ulb = ulb;
+        this.ulbName = ulbName;
         this.meterNo = meterNo;
         this.clusterName = clusterName;
         this.roadName = roadName;
@@ -93,33 +77,12 @@ public class Unit {
         this.commandMode = commandMode;
     }
 
-    public Unit(Long imei, int unitId, Ulb ulb, String meterNo, String clusterName,
-                String roadName, float ledRating, float totalLoad, int noOfFixture,
-                String typeOfLoad, Long mobile, int phase, float latitude, float longitude,
-                String commandMode) {
+    public Long getImei() {
+        return imei;
+    }
+
+    public void setImei(Long imei) {
         this.imei = imei;
-        this.unitId = unitId;
-        this.ulb = ulb;
-        this.meterNo = meterNo;
-        this.clusterName = clusterName;
-        this.roadName = roadName;
-        this.ledRating = ledRating;
-        this.totalLoad = totalLoad;
-        this.noOfFixture = noOfFixture;
-        this.typeOfLoad = typeOfLoad;
-        this.mobile = mobile;
-        this.phase = phase;
-        this.latitude = latitude;
-        this.longitude = longitude;
-        this.commandMode = commandMode;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public int getUnitId() {
@@ -130,12 +93,12 @@ public class Unit {
         this.unitId = unitId;
     }
 
-    public Ulb getUlbName() {
-        return ulb;
+    public String getUlbName() {
+        return ulbName;
     }
 
-    public void setUlbName(Ulb ulbName) {
-        this.ulb = ulbName;
+    public void setUlbName(String ulbName) {
+        this.ulbName = ulbName;
     }
 
     public String getMeterNo() {
@@ -192,22 +155,6 @@ public class Unit {
 
     public void setTypeOfLoad(String typeOfLoad) {
         this.typeOfLoad = typeOfLoad;
-    }
-
-    public Long getImei() {
-        return imei;
-    }
-
-    public void setImei(Long imei) {
-        this.imei = imei;
-    }
-
-    public Ulb getUlb() {
-        return ulb;
-    }
-
-    public void setUlb(Ulb ulb) {
-        this.ulb = ulb;
     }
 
     public Long getMobile() {
