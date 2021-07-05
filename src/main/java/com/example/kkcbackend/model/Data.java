@@ -1,5 +1,6 @@
 package com.example.kkcbackend.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.sun.istack.NotNull;
 
 import javax.persistence.*;
@@ -7,6 +8,7 @@ import java.util.Date;
 
 @Entity
 @Table(name="data")
+@JsonIgnoreProperties({"hibernateLazyInitializer","handler"})
 public class Data {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
