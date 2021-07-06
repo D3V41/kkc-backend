@@ -64,13 +64,13 @@ public class UnitController {
 
     @GetMapping(path = "unitlist")
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<List<Object[]>> getUnitList(){
-        List<Object[]> list = unitService.getUnitList();
+    public ResponseEntity<List<UnitListResponce>> getUnitList(){
+        List<UnitListResponce> list = unitService.getUnitList();
         if(list != null){
-            return new ResponseEntity<List<Object[]>>(list,HttpStatus.OK);
+            return new ResponseEntity<List<UnitListResponce>>(list,HttpStatus.OK);
         }
         else {
-            return new ResponseEntity<List<Object[]>>((List<Object[]>) null,HttpStatus.UNAUTHORIZED);
+            return new ResponseEntity<List<UnitListResponce>>((List<UnitListResponce>) null,HttpStatus.UNAUTHORIZED);
         }
 
     }
@@ -90,12 +90,12 @@ public class UnitController {
                 return new ResponseEntity<String>("Unit Updated", HttpStatus.OK);
             }
             else {
-                return new ResponseEntity<String >("Unit not exists", HttpStatus.UNAUTHORIZED);
+                return new ResponseEntity<String>("Unit not exists", HttpStatus.UNAUTHORIZED);
             }
 
         }
         else {
-            return new ResponseEntity<String >("Ulb not exists", HttpStatus.UNAUTHORIZED);
+            return new ResponseEntity<String>("Ulb not exists", HttpStatus.UNAUTHORIZED);
         }
     }
 

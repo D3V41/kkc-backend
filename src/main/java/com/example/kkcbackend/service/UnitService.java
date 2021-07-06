@@ -44,7 +44,7 @@ public class UnitService {
         return true;
     }
 
-    public List<Object[]> getUnitList(){
+    public List<UnitListResponce> getUnitList(){
         List<Object[]> list = unitDao.getUnitList();
         List<UnitListResponce> list2 = new ArrayList<>();
         for (Object[] obj : list){
@@ -56,6 +56,6 @@ public class UnitService {
             unitListResponce.setUlbName((String) obj[4]);
             list2.add(unitListResponce);
         }
-        return unitDao.getUnitList();
+        return list2;
     }
 }
