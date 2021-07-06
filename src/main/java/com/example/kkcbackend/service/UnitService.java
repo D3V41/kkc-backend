@@ -6,6 +6,7 @@ import com.example.kkcbackend.payload.responce.UnitListResponce;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -45,8 +46,15 @@ public class UnitService {
 
     public List<Object[]> getUnitList(){
         List<Object[]> list = unitDao.getUnitList();
+        List<UnitListResponce> list2 = new ArrayList<>();
         for (Object[] obj : list){
-            System.out.println("\n\n\n\n\n\n"+obj[0]+"\n\n\n\n\n\n");
+            UnitListResponce unitListResponce = new UnitListResponce();
+            unitListResponce.setUnitId((int)obj[0]);
+            unitListResponce.setClusterName((String) obj[1]);
+            unitListResponce.setPhase((int)obj[2]);
+            unitListResponce.setRoadName((String) obj[3]);
+            unitListResponce.setUlbName((String) obj[4]);
+            list2.add(unitListResponce);
         }
         return unitDao.getUnitList();
     }
