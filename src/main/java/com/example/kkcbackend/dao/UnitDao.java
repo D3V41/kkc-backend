@@ -3,6 +3,7 @@ package com.example.kkcbackend.dao;
 import com.example.kkcbackend.model.Project;
 import com.example.kkcbackend.model.Ulb;
 import com.example.kkcbackend.model.Unit;
+import com.example.kkcbackend.payload.responce.UnitListResponce;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -10,6 +11,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -40,4 +42,10 @@ public interface UnitDao extends JpaRepository<Unit,Long> {
 
     @Query(value = "SELECT * FROM Units u WHERE u.id = :id",nativeQuery = true)
     Optional<Unit> findById(Long id);
+
+    @Query(value = "SELECT unit.unitId, ulb.clusterName, unit.phase, unit.roadName, ulb.ulbName " +
+            "FROM Unit unit " +
+            "JOIN Ulb as ulb " +
+            "ON unit.ulb.ulbId = ulb.ulbId")
+    List<Object[]> getUnitList();
 }

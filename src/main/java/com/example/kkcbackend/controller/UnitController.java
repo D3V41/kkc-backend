@@ -3,6 +3,7 @@ package com.example.kkcbackend.controller;
 import com.example.kkcbackend.model.Ulb;
 import com.example.kkcbackend.model.Unit;
 import com.example.kkcbackend.payload.request.UnitRequest;
+import com.example.kkcbackend.payload.responce.UnitListResponce;
 import com.example.kkcbackend.service.UlbService;
 import com.example.kkcbackend.service.UnitService;
 import com.sun.istack.NotNull;
@@ -13,6 +14,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequestMapping("/unit")
@@ -52,12 +54,24 @@ public class UnitController {
     public ResponseEntity<Unit> getUnit(@PathVariable("unitId") int unitId){
        Unit u = unitService.findByUnitId(unitId);
        if(u != null){
-           System.out.println(u);
           return new ResponseEntity<Unit>(u,HttpStatus.OK);
        }
        else {
            return new ResponseEntity<Unit>((Unit) null,HttpStatus.UNAUTHORIZED);
        }
+
+    }
+
+    @GetMapping(path = "unitlist")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<List<Object[]>> getUnitList(){
+        List<Object[]> list = unitService.getUnitList();
+        if(list != null){
+            return new ResponseEntity<List<Object[]>>(list,HttpStatus.OK);
+        }
+        else {
+            return new ResponseEntity<List<Object[]>>((List<Object[]>) null,HttpStatus.UNAUTHORIZED);
+        }
 
     }
 

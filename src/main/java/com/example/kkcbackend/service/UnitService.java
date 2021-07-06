@@ -2,8 +2,12 @@ package com.example.kkcbackend.service;
 
 import com.example.kkcbackend.dao.UnitDao;
 import com.example.kkcbackend.model.Unit;
+import com.example.kkcbackend.payload.responce.UnitListResponce;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Arrays;
+import java.util.List;
 
 @Service
 public class UnitService {
@@ -37,5 +41,13 @@ public class UnitService {
                 u.getNoOfFixture(),u.getTypeOfLoad(),u.getMobile(),u.getPhase(),u.getLatitude(),
                 u.getLongitude(),u.getCommandMode());
         return true;
+    }
+
+    public List<Object[]> getUnitList(){
+        List<Object[]> list = unitDao.getUnitList();
+        for (Object[] obj : list){
+            System.out.println("\n\n\n\n\n\n"+obj[0]+"\n\n\n\n\n\n");
+        }
+        return unitDao.getUnitList();
     }
 }
