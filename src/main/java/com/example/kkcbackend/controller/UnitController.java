@@ -3,6 +3,7 @@ package com.example.kkcbackend.controller;
 import com.example.kkcbackend.model.Ulb;
 import com.example.kkcbackend.model.Unit;
 import com.example.kkcbackend.payload.request.UnitRequest;
+import com.example.kkcbackend.payload.responce.StringResponce;
 import com.example.kkcbackend.payload.responce.UnitListResponce;
 import com.example.kkcbackend.service.UlbService;
 import com.example.kkcbackend.service.UnitService;
@@ -30,22 +31,25 @@ public class UnitController {
     public ResponseEntity<?> addUnit(@Valid @NotNull @RequestBody UnitRequest u){
         Ulb ulb = ulbService.findByUlbName(u.getUlbName());
         Unit unit = unitService.checkByImeiOrUnitId(u.getImei(),u.getUnitId());
-
+        String responce;
         if(ulb != null ){
             Unit unit1 = new Unit(u.getImei(),u.getUnitId(),ulb,u.getMeterNo(),u.getClusterName(),
                     u.getRoadName(),u.getLedRating(),u.getTotalLoad(),u.getNoOfFixture(),u.getTypeOfLoad(),
                     u.getMobile(),u.getPhase(),u.getLatitude(),u.getLongitude(),u.getCommandMode());
             if(unit == null){
                 unitService.insertUnit(unit1);
-                return new ResponseEntity<String>("Unit Added", HttpStatus.OK);
+                responce = "Unit Added";
+                return new ResponseEntity<StringResponce>(new StringResponce(responce), HttpStatus.OK);
             }
             else {
-                return new ResponseEntity<String >("Unit exists", HttpStatus.UNAUTHORIZED);
+                responce = "Unit exists";
+                return new ResponseEntity<StringResponce >(new StringResponce(responce), HttpStatus.UNAUTHORIZED);
             }
 
         }
         else {
-            return new ResponseEntity<String >("Ulb not exists", HttpStatus.UNAUTHORIZED);
+            responce = "Ulb not exists";
+            return new ResponseEntity<StringResponce >(new StringResponce(responce), HttpStatus.UNAUTHORIZED);
         }
     }
 
@@ -80,22 +84,25 @@ public class UnitController {
     public ResponseEntity<?> updateUnit(@Valid @NotNull @RequestBody UnitRequest u){
         Ulb ulb = ulbService.findByUlbName(u.getUlbName());
         Unit unit = unitService.findByUnitId(u.getUnitId());
-
+        String responce;
         if(ulb != null ){
             if(unit != null){
                 Unit unit1 = new Unit(u.getImei(),u.getUnitId(),ulb,u.getMeterNo(),u.getClusterName(),
                         u.getRoadName(),u.getLedRating(),u.getTotalLoad(),u.getNoOfFixture(),u.getTypeOfLoad(),
                         u.getMobile(),u.getPhase(),u.getLatitude(),u.getLongitude(),u.getCommandMode());
                 unitService.updateUnit(unit1);
-                return new ResponseEntity<String>("Unit Updated", HttpStatus.OK);
+                responce = "Unit Updated";
+                return new ResponseEntity<StringResponce>(new StringResponce(responce), HttpStatus.OK);
             }
             else {
-                return new ResponseEntity<String>("Unit not exists", HttpStatus.UNAUTHORIZED);
+                responce = "Unit not exists";
+                return new ResponseEntity<StringResponce>(new StringResponce(responce), HttpStatus.UNAUTHORIZED);
             }
 
         }
         else {
-            return new ResponseEntity<String>("Ulb not exists", HttpStatus.UNAUTHORIZED);
+            responce = "Ulb not exists";
+            return new ResponseEntity<StringResponce>(new StringResponce(responce), HttpStatus.UNAUTHORIZED);
         }
     }
 

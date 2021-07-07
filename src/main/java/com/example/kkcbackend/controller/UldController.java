@@ -3,6 +3,7 @@ package com.example.kkcbackend.controller;
 import com.example.kkcbackend.model.Project;
 import com.example.kkcbackend.model.Ulb;
 import com.example.kkcbackend.payload.request.UlbRequest;
+import com.example.kkcbackend.payload.responce.StringResponce;
 import com.example.kkcbackend.payload.responce.UnitListResponce;
 import com.example.kkcbackend.service.ProjectService;
 import com.example.kkcbackend.service.UlbService;
@@ -30,18 +31,22 @@ public class UldController {
     public ResponseEntity<?> addUlb(@Valid @NotNull @RequestBody UlbRequest u){
         Project p = projectService.findByProjectId(u.getProjectId());
         Ulb u1 = ulbService.findByUlbName(u.getUlbName());
+        String responce;
         if(p != null){
             Ulb ulb = new Ulb(u.getUlbId(),u.getUlbName(),u.getClusterName(),p);
             if(u1 == null){
                 ulbService.insertUlb(ulb);
-                return new ResponseEntity<String>("Ulb Added",HttpStatus.OK);
+                responce = "Ulb updated";
+                return new ResponseEntity<StringResponce>(new StringResponce(responce),HttpStatus.OK);
             }
             else {
-                return new ResponseEntity<String >("Ulb exists", HttpStatus.UNAUTHORIZED);
+                responce = "Ulb exists";
+                return new ResponseEntity<StringResponce >(new StringResponce(responce), HttpStatus.UNAUTHORIZED);
             }
         }
         else {
-            return new ResponseEntity<String >("Project not exists", HttpStatus.UNAUTHORIZED);
+            responce = "Project not exists";
+            return new ResponseEntity<StringResponce >(new StringResponce(responce), HttpStatus.UNAUTHORIZED);
         }
     }
 
