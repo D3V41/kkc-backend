@@ -3,6 +3,7 @@ package com.example.kkcbackend.controller;
 import com.example.kkcbackend.model.Project;
 import com.example.kkcbackend.model.Ulb;
 import com.example.kkcbackend.payload.request.UlbRequest;
+import com.example.kkcbackend.payload.responce.UnitListResponce;
 import com.example.kkcbackend.service.ProjectService;
 import com.example.kkcbackend.service.UlbService;
 import com.sun.istack.NotNull;
@@ -13,6 +14,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequestMapping("/ulb")
@@ -41,5 +43,18 @@ public class UldController {
         else {
             return new ResponseEntity<String >("Project not exists", HttpStatus.UNAUTHORIZED);
         }
+    }
+
+    @GetMapping(path = "ulbnames")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<List<String>> getUlbname(){
+        List<String > list = ulbService.getUlbNames();
+        if(list != null){
+            return new ResponseEntity<List<String>>(list,HttpStatus.OK);
+        }
+        else {
+            return new ResponseEntity<List<String>>((List<String>) null,HttpStatus.UNAUTHORIZED);
+        }
+
     }
 }

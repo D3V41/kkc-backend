@@ -7,6 +7,7 @@ import com.example.kkcbackend.model.Ulb;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -25,5 +26,9 @@ public class UlbService {
 
     public Ulb findByUlbName(String name){
         return ulbDao.findByUlbName(name).orElse(null);
+    }
+
+    public List<String> getUlbNames(){
+        return ulbDao.getUlbnames();
     }
 }
