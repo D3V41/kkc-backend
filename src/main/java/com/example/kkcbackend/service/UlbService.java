@@ -31,4 +31,8 @@ public class UlbService {
     public List<String> getUlbNames(){
         return ulbDao.getUlbnames();
     }
+
+    public List<String> getUlbnameByCluster(String clusterName){
+        return ulbDao.getUlbnameByCluster(clusterName);
+    }
 }

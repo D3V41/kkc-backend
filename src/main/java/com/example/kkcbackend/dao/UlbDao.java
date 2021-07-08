@@ -20,4 +20,7 @@ public interface UlbDao extends JpaRepository<Ulb,Long> {
 
     @Query(value = "SELECT ulb_name FROM Ulbs u ",nativeQuery = true)
     List<String> getUlbnames();
+
+    @Query(value = "SELECT ulb_name FROM Ulbs u WHERE u.cluster_name = :clusterName",nativeQuery = true)
+    List<String> getUlbnameByCluster(String clusterName);
 }

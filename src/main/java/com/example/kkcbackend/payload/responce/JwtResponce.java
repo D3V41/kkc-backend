@@ -11,6 +11,7 @@ public class JwtResponce implements Serializable {
     private String password;
     private Long projectId;
     private String clusterName;
+    private List<String> ulbName;
     private List<String> role;
 
     public JwtResponce(String jwttoken, String userName, Long projectId, String clusterName, List<String> role) {
@@ -19,6 +20,26 @@ public class JwtResponce implements Serializable {
         this.projectId = projectId;
         this.clusterName = clusterName;
         this.role = role;
+    }
+
+    public JwtResponce(String jwttoken, String userName, Long projectId, String clusterName, List<String> ulbName, List<String> role) {
+        this.jwttoken = jwttoken;
+        this.userName = userName;
+        this.projectId = projectId;
+        this.clusterName = clusterName;
+        this.ulbName = ulbName;
+        this.role = role;
+    }
+
+    public JwtResponce() {
+    }
+
+    public List<String> getUlbName() {
+        return ulbName;
+    }
+
+    public void setUlbName(List<String> ulbName) {
+        this.ulbName = ulbName;
     }
 
     public String getJwttoken() {

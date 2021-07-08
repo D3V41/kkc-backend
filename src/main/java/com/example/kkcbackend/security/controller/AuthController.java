@@ -10,6 +10,7 @@ import com.example.kkcbackend.security.model.AdminDetails;
 import com.example.kkcbackend.security.model.WorkerDetails;
 import com.example.kkcbackend.security.service.MyUserDetailsService;
 import com.example.kkcbackend.service.ProjectService;
+import com.example.kkcbackend.service.UlbService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -40,6 +41,8 @@ public class AuthController {
     JwtUtils jwtUtils;
     @Autowired
     ProjectService projectService;
+    @Autowired
+    UlbService ulbService;
 
     @PostMapping("/signin")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest l){
@@ -54,6 +57,7 @@ public class AuthController {
         User u = myUserDetailsService.findUser(l.getUsername(),l.getClusterName(),l.getProjectId());
 
         if(u != null) {
+            List<String> ulbnames = ulbService.getUlbnameByCluster(u.getClusterName());
             if (u.getEditAccess()) {
                 String jwt = jwtUtils.generateAdminJwtToken(authentication);
 
@@ -67,6 +71,7 @@ public class AuthController {
                         adminDetails.getUsername(),
                         adminDetails.getProjectId(),
                         adminDetails.getClusterName(),
+                        ulbnames,
                         roles));
             } else if (!u.getEditAccess()) {
                 String jwt = jwtUtils.generateWorkerJwtToken(authentication);
@@ -81,6 +86,7 @@ public class AuthController {
                         workerDetails.getUsername(),
                         workerDetails.getProjectId(),
                         workerDetails.getClusterName(),
+                        ulbnames,
                         roles));
             }
         }
