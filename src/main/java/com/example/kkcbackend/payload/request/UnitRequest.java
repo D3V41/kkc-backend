@@ -53,6 +53,9 @@ public class UnitRequest {
     @NotNull
     private String commandMode;
 
+    @NotNull
+    private int ward;
+
     public UnitRequest() {
     }
 
@@ -75,6 +78,33 @@ public class UnitRequest {
         this.latitude = latitude;
         this.longitude = longitude;
         this.commandMode = commandMode;
+    }
+
+    public UnitRequest(Long imei, int unitId, String ulbName, String meterNo, String clusterName, String roadName, float ledRating, float totalLoad, int noOfFixture, String typeOfLoad, Long mobile, int phase, float latitude, float longitude, String commandMode, int ward) {
+        this.imei = imei;
+        this.unitId = unitId;
+        this.ulbName = ulbName;
+        this.meterNo = meterNo;
+        this.clusterName = clusterName;
+        this.roadName = roadName;
+        this.ledRating = ledRating;
+        this.totalLoad = totalLoad;
+        this.noOfFixture = noOfFixture;
+        this.typeOfLoad = typeOfLoad;
+        this.mobile = mobile;
+        this.phase = phase;
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.commandMode = commandMode;
+        this.ward = ward;
+    }
+
+    public int getWard() {
+        return ward;
+    }
+
+    public void setWard(int ward) {
+        this.ward = ward;
     }
 
     public Long getImei() {

@@ -36,7 +36,7 @@ public class UldController {
             Ulb ulb = new Ulb(u.getUlbId(),u.getUlbName(),u.getClusterName(),p);
             if(u1 == null){
                 ulbService.insertUlb(ulb);
-                responce = "Ulb updated";
+                responce = "Ulb Added";
                 return new ResponseEntity<StringResponce>(new StringResponce(responce),HttpStatus.OK);
             }
             else {

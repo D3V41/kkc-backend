@@ -30,13 +30,12 @@ public class UnitController {
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> addUnit(@Valid @NotNull @RequestBody UnitRequest u){
         Ulb ulb = ulbService.findByUlbName(u.getUlbName());
-        Unit unit = unitService.checkByImeiOrUnitId(u.getImei(),u.getUnitId());
         String responce;
         if(ulb != null ){
             Unit unit1 = new Unit(u.getImei(),u.getUnitId(),ulb,u.getMeterNo(),u.getClusterName(),
                     u.getRoadName(),u.getLedRating(),u.getTotalLoad(),u.getNoOfFixture(),u.getTypeOfLoad(),
-                    u.getMobile(),u.getPhase(),u.getLatitude(),u.getLongitude(),u.getCommandMode());
-            if(unit == null){
+                    u.getMobile(),u.getPhase(),u.getLatitude(),u.getLongitude(),u.getCommandMode(),u.getWard());
+            if(!unitService.checkByImeiOrUnitId(u.getImei(),u.getUnitId())){
                 unitService.insertUnit(unit1);
                 responce = "Unit Added";
                 return new ResponseEntity<StringResponce>(new StringResponce(responce), HttpStatus.OK);
@@ -55,13 +54,13 @@ public class UnitController {
 
     @GetMapping(path = "{unitId}")
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<Unit> getUnit(@PathVariable("unitId") int unitId){
+    public ResponseEntity<?> getUnit(@PathVariable("unitId") int unitId){
        Unit u = unitService.findByUnitId(unitId);
        if(u != null){
           return new ResponseEntity<Unit>(u,HttpStatus.OK);
        }
        else {
-           return new ResponseEntity<Unit>((Unit) null,HttpStatus.UNAUTHORIZED);
+           return new ResponseEntity<StringResponce>(new StringResponce("Invalid unit id"),HttpStatus.UNAUTHORIZED);
        }
 
     }
@@ -89,7 +88,7 @@ public class UnitController {
             if(unit != null){
                 Unit unit1 = new Unit(u.getImei(),u.getUnitId(),ulb,u.getMeterNo(),u.getClusterName(),
                         u.getRoadName(),u.getLedRating(),u.getTotalLoad(),u.getNoOfFixture(),u.getTypeOfLoad(),
-                        u.getMobile(),u.getPhase(),u.getLatitude(),u.getLongitude(),u.getCommandMode());
+                        u.getMobile(),u.getPhase(),u.getLatitude(),u.getLongitude(),u.getCommandMode(),u.getWard());
                 unitService.updateUnit(unit1);
                 responce = "Unit Updated";
                 return new ResponseEntity<StringResponce>(new StringResponce(responce), HttpStatus.OK);

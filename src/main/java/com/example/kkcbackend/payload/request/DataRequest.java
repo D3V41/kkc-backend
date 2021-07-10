@@ -1,29 +1,18 @@
-package com.example.kkcbackend.model;
+package com.example.kkcbackend.payload.request;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.sun.istack.NotNull;
 
-import javax.persistence.*;
 import java.util.Date;
 
-@Entity
-@Table(name="data")
-@JsonIgnoreProperties({"hibernateLazyInitializer","handler"})
-public class Data {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class DataRequest {
     @NotNull
     private Long id;
 
     @NotNull
     private String eventType;
 
-//    @NotNull
-//    private int unitId;
-
-    @ManyToOne(fetch = FetchType.LAZY,optional = false)
-    @JoinColumn(name = "unit_id",nullable = false)
-    private Unit unit;
+    @NotNull
+    private int unitId;
 
     @NotNull
     private int minute;
@@ -151,29 +140,10 @@ public class Data {
     @NotNull
     private String rawString;
 
-    public Data() {
-    }
-
-    public Data(Long id) {
-        this.id = id;
-    }
-
-    public Data(Long id, String eventType, Unit unit, int minute, int hour, int day, int month, int year,
-                Date timestamp, float voltage_R_Phase, float voltage_Y_Phase, float voltage_B_Phase,
-                float current_R_Phase, float current_Y_Phase, float current_B_Phase, float powerFactor_R_Phase,
-                float powerFactor_Y_Phase, float powerFactor_B_Phase, float kwh, float kvah,
-                float voltage_THD_R_Phase_Percentage, float voltage_THD_Y_Phase_Percentage,
-                float voltage_THD_B_Phase_Percentage, float current_THD_R_Phase_Percentage,
-                float current_THD_Y_Phase_Percentage, float current_THD_B_Phase_Percentage,
-                int r_Light_Failure, int y_Light_Failure, float powerFailHRs, String faultByte,
-                String prime_Mode_ON_TIME, String prime_Mode_OFF_TIME, String dimmed_ON_TIME,
-                String dimmed_OFF_TIME, String longitude_AXIS, String latitude_AXIS, String rYB_Image,
-                String s1S2BoostOutputImage, String auxInputImage, String earthCurrent,
-                String lEDDaywiseGlowingHours, String lEDDaywiseNonGlowingHours, String bLight_failure,
-                Date createdOn, String rawString) {
+    public DataRequest(Long id, String eventType, int unitId, int minute, int hour, int day, int month, int year, Date timestamp, float voltage_R_Phase, float voltage_Y_Phase, float voltage_B_Phase, float current_R_Phase, float current_Y_Phase, float current_B_Phase, float powerFactor_R_Phase, float powerFactor_Y_Phase, float powerFactor_B_Phase, float kwh, float kvah, float voltage_THD_R_Phase_Percentage, float voltage_THD_Y_Phase_Percentage, float voltage_THD_B_Phase_Percentage, float current_THD_R_Phase_Percentage, float current_THD_Y_Phase_Percentage, float current_THD_B_Phase_Percentage, int r_Light_Failure, int y_Light_Failure, float powerFailHRs, String faultByte, String prime_Mode_ON_TIME, String prime_Mode_OFF_TIME, String dimmed_ON_TIME, String dimmed_OFF_TIME, String longitude_AXIS, String latitude_AXIS, String rYB_Image, String s1S2BoostOutputImage, String auxInputImage, String earthCurrent, String lEDDaywiseGlowingHours, String lEDDaywiseNonGlowingHours, String bLight_failure, Date createdOn, String rawString) {
         this.id = id;
         this.eventType = eventType;
-        this.unit = unit;
+        this.unitId = unitId;
         this.minute = minute;
         this.hour = hour;
         this.day = day;
@@ -234,12 +204,12 @@ public class Data {
         this.eventType = eventType;
     }
 
-    public Unit getUnit() {
-        return unit;
+    public int getUnitId() {
+        return unitId;
     }
 
-    public void setUnit(Unit unit) {
-        this.unit = unit;
+    public void setUnitId(int unitId) {
+        this.unitId = unitId;
     }
 
     public int getMinute() {

@@ -5,6 +5,7 @@ import com.sun.istack.NotNull;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
+import java.util.List;
 
 @Entity
 @Table(name="units")
@@ -25,6 +26,9 @@ public class Unit {
     @ManyToOne(fetch = FetchType.LAZY,optional = false)
     @JoinColumn(name = "ulb_id",nullable = false)
     private Ulb ulb;
+
+    @OneToMany(mappedBy = "unit",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    private List<Data> data;
 
 //    @NotNull
 //    private String ulbName;
@@ -64,6 +68,9 @@ public class Unit {
 
     @NotNull
     private String commandMode;
+
+    @NotNull
+    private int ward;
 
 
     public Unit() {
@@ -116,7 +123,32 @@ public class Unit {
         this.commandMode = commandMode;
     }
 
+    public Unit(Long imei, int unitId, Ulb ulb, String meterNo, String clusterName, String roadName, float ledRating, float totalLoad, int noOfFixture, String typeOfLoad, Long mobile, int phase, float latitude, float longitude, String commandMode, int ward) {
+        this.imei = imei;
+        this.unitId = unitId;
+        this.ulb = ulb;
+        this.meterNo = meterNo;
+        this.clusterName = clusterName;
+        this.roadName = roadName;
+        this.ledRating = ledRating;
+        this.totalLoad = totalLoad;
+        this.noOfFixture = noOfFixture;
+        this.typeOfLoad = typeOfLoad;
+        this.mobile = mobile;
+        this.phase = phase;
+        this.latitude = latitude;
+        this.longitude = longitude;
+        this.commandMode = commandMode;
+        this.ward = ward;
+    }
 
+    public int getWard() {
+        return ward;
+    }
+
+    public void setWard(int ward) {
+        this.ward = ward;
+    }
 
     public Long getId() {
         return id;

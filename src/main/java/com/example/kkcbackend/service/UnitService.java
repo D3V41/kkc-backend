@@ -32,15 +32,17 @@ public class UnitService {
         return unitDao.findById(id).orElse(null);
     }
 
-    public Unit checkByImeiOrUnitId(Long imei,int unitId){
-        return unitDao.checkByImeiOrUnitId(imei,unitId).orElse(null);
+    public Boolean checkByImeiOrUnitId(Long imei,int unitId){
+        List<Unit> units = unitDao.checkByImeiOrUnitId(imei,unitId);
+        return !units.isEmpty();
+
     }
 
     public Boolean updateUnit(Unit u){
         unitDao.updateUnit(u.getImei(),u.getUnitId(),u.getUlb(),u.getMeterNo(),
                 u.getClusterName(),u.getRoadName(),u.getLedRating(),u.getTotalLoad(),
                 u.getNoOfFixture(),u.getTypeOfLoad(),u.getMobile(),u.getPhase(),u.getLatitude(),
-                u.getLongitude(),u.getCommandMode());
+                u.getLongitude(),u.getCommandMode(),u.getWard());
         return true;
     }
 
