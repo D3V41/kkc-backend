@@ -3,6 +3,8 @@ package com.example.kkcbackend.controller;
 import com.example.kkcbackend.model.Ulb;
 import com.example.kkcbackend.model.Unit;
 import com.example.kkcbackend.payload.request.UnitRequest;
+import com.example.kkcbackend.payload.responce.MapviewResponce;
+import com.example.kkcbackend.payload.responce.StatusResponce;
 import com.example.kkcbackend.payload.responce.StringResponce;
 import com.example.kkcbackend.payload.responce.UnitListResponce;
 import com.example.kkcbackend.service.UlbService;
@@ -103,6 +105,19 @@ public class UnitController {
             responce = "Ulb not exists";
             return new ResponseEntity<StringResponce>(new StringResponce(responce), HttpStatus.UNAUTHORIZED);
         }
+    }
+
+    @GetMapping(path = "mapview/{phase}")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<? extends Object> getData(@PathVariable("phase") int phase){
+        List<MapviewResponce> list = unitService.getMapviewList(phase);
+        if(!list.isEmpty()){
+            return new ResponseEntity<List<MapviewResponce>>(list,HttpStatus.OK);
+        }
+        else {
+            return new ResponseEntity<StringResponce>(new StringResponce("No data"),HttpStatus.UNAUTHORIZED);
+        }
+
     }
 
 }

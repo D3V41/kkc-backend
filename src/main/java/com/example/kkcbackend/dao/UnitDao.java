@@ -49,4 +49,9 @@ public interface UnitDao extends JpaRepository<Unit,Long> {
             "JOIN Ulb as ulb " +
             "ON unit.ulb.ulbId = ulb.ulbId")
     List<Object[]> getUnitList();
+
+    @Query(value = "SELECT u.unitId, u.roadName, u.latitude, u.longitude " +
+            "FROM Unit u " +
+            "WHERE u.phase = :phase")
+    List<Object[]> getMapviewList(int phase);
 }

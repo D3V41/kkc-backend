@@ -81,7 +81,7 @@ public class DataController {
 
     }
 
-    @GetMapping(path = "{phase}/{ulbname}")
+    @GetMapping(path = "status/{phase}/{ulbname}")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<? extends Object> getData(@PathVariable("phase") int phase, @PathVariable("ulbname")String ulbname){
         List<StatusResponce> list = dataService.getStatusData(phase,ulbname);

@@ -2,6 +2,7 @@ package com.example.kkcbackend.service;
 
 import com.example.kkcbackend.dao.UnitDao;
 import com.example.kkcbackend.model.Unit;
+import com.example.kkcbackend.payload.responce.MapviewResponce;
 import com.example.kkcbackend.payload.responce.UnitListResponce;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -57,6 +58,20 @@ public class UnitService {
             unitListResponce.setRoadName((String) obj[3]);
             unitListResponce.setUlbName((String) obj[4]);
             list2.add(unitListResponce);
+        }
+        return list2;
+    }
+
+    public List<MapviewResponce> getMapviewList(int phase){
+        List<Object[]> list = unitDao.getMapviewList(phase);
+        List<MapviewResponce> list2 = new ArrayList<>();
+        for (Object[] obj : list){
+            MapviewResponce mapviewResponce = new MapviewResponce();
+            mapviewResponce.setUnitId((Integer) obj[0]);
+            mapviewResponce.setRoadName((String) obj[1]);
+            mapviewResponce.setLatitude((Float) obj[2]);
+            mapviewResponce.setLongitude((Float) obj[3]);
+            list2.add(mapviewResponce);
         }
         return list2;
     }
