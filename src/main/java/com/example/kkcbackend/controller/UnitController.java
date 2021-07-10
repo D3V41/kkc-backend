@@ -110,14 +110,19 @@ public class UnitController {
     @GetMapping(path = "mapview/{phase}")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<? extends Object> getData(@PathVariable("phase") int phase){
-        List<MapviewResponce> list = unitService.getMapviewList(phase);
+        List<MapviewResponce> list;
+        if(phase == 1 || phase == 3) {
+            list = unitService.getMapviewList(phase);
+        }
+        else {
+            list = unitService.getMapviewListAllPhase();
+        }
         if(!list.isEmpty()){
             return new ResponseEntity<List<MapviewResponce>>(list,HttpStatus.OK);
         }
         else {
             return new ResponseEntity<StringResponce>(new StringResponce("No data"),HttpStatus.UNAUTHORIZED);
         }
-
     }
 
 }

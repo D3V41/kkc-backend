@@ -54,4 +54,8 @@ public interface UnitDao extends JpaRepository<Unit,Long> {
             "FROM Unit u " +
             "WHERE u.phase = :phase")
     List<Object[]> getMapviewList(int phase);
+
+    @Query(value = "SELECT u.unitId, u.roadName, u.latitude, u.longitude " +
+            "FROM Unit u")
+    List<Object[]> getMapviewListAllPhase();
 }

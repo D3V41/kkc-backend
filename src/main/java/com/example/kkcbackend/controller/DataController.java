@@ -84,7 +84,13 @@ public class DataController {
     @GetMapping(path = "status/{phase}/{ulbname}")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<? extends Object> getData(@PathVariable("phase") int phase, @PathVariable("ulbname")String ulbname){
-        List<StatusResponce> list = dataService.getStatusData(phase,ulbname);
+        List<StatusResponce> list;
+        if(phase == 1 || phase == 3) {
+            list = dataService.getStatusData(phase, ulbname);
+        }
+        else {
+            list = dataService.getStatusDataAllPhase(ulbname);
+        }
         if(!list.isEmpty()){
             return new ResponseEntity<List<StatusResponce>>(list,HttpStatus.OK);
         }

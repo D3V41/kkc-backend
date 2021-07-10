@@ -64,6 +64,15 @@ public class UnitService {
 
     public List<MapviewResponce> getMapviewList(int phase){
         List<Object[]> list = unitDao.getMapviewList(phase);
+        return extractMapData(list);
+    }
+
+    public List<MapviewResponce> getMapviewListAllPhase(){
+        List<Object[]> list = unitDao.getMapviewListAllPhase();
+        return extractMapData(list);
+    }
+
+    public List<MapviewResponce> extractMapData(List<Object[]> list){
         List<MapviewResponce> list2 = new ArrayList<>();
         for (Object[] obj : list){
             MapviewResponce mapviewResponce = new MapviewResponce();

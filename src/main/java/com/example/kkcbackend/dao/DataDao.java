@@ -23,4 +23,11 @@ public interface DataDao extends JpaRepository<Data,Long> {
             "FROM Data d JOIN Unit u ON d.unit.unitId = u.unitId " +
             "WHERE u.ulb.ulbName = :ulbname AND u.phase = :phase")
     List<Object[]> getStatusData(int phase,String ulbname);
+
+    @Query(value = "SELECT d.timestamp, u.clusterName, u.ward, u.roadName, u.unitId, d.prime_Mode_ON_TIME, " +
+            "d.prime_Mode_OFF_TIME, d.kwh, d.current_R_Phase, d.current_Y_Phase, d.current_B_Phase, " +
+            "d.eventType " +
+            "FROM Data d JOIN Unit u ON d.unit.unitId = u.unitId " +
+            "WHERE u.ulb.ulbName = :ulbname")
+    List<Object[]> getStatusDataAllPhase(String ulbname);
 }

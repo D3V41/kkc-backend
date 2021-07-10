@@ -32,6 +32,19 @@ public class DataService {
 
     public List<StatusResponce> getStatusData(int phase,String ulbname){
         List<Object[]> list = dataDao.getStatusData(phase,ulbname);
+        return extractStatus(list);
+    }
+
+    public List<StatusResponce> getStatusDataAllPhase(String ulbname){
+        List<Object[]> list = dataDao.getStatusDataAllPhase(ulbname);
+        return extractStatus(list);
+    }
+
+    public float getTotalcurrent(float r,float y, float b){
+        return (r+y+b)/3;
+    }
+
+    public List<StatusResponce> extractStatus(List<Object[]> list){
         List<StatusResponce> list2 = new ArrayList<>();
         for (Object[] obj : list){
             StatusResponce statusResponce = new StatusResponce();
@@ -57,9 +70,5 @@ public class DataService {
             list2.add(statusResponce);
         }
         return list2;
-    }
-
-    public float getTotalcurrent(float r,float y, float b){
-        return (r+y+b)/3;
     }
 }
