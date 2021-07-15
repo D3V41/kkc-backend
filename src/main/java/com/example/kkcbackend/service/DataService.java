@@ -69,6 +69,7 @@ public class DataService {
             statusResponce.setKwTotal(0.0F);
             statusResponce.setEventType((String) obj[11]);
             statusResponce.setTotalloadwattage(0.0F);
+            statusResponce.setImei((Long) obj[12]);
             list2.add(statusResponce);
         }
         return list2;
