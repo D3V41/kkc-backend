@@ -67,24 +67,29 @@ public class ContactController {
     @PutMapping
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> updateContact(@Valid @NotNull @RequestBody ContactRequest c){
-        Boolean flag = contactService.checkPersonExistsById(c.getId());
-        Ulb ulb = ulbService.findByUlbName(c.getUlbName());
         String responce;
-        if(ulb != null ){
-            if(!flag){
-                Contact contact = new Contact(c.getId(),c.getPersonName(),c.getPersonMobile(),c.getAddress(),ulb);
-                contactService.updateContact(contact);
-                responce = "Contact Updated";
-                return new ResponseEntity<StringResponce>(new StringResponce(responce), HttpStatus.OK);
-            }
-            else {
-                responce = "Contact not exists";
+        if(c.getAddress()!=null && c.getUlbName()!=null && c.getPersonName()!=null && c.getPersonMobile()!=null) {
+            Boolean flag = contactService.checkPersonExistsById(c.getId());
+            Ulb ulb = ulbService.findByUlbName(c.getUlbName());
+
+            if (ulb != null) {
+                if (!flag) {
+                    Contact contact = new Contact(c.getId(), c.getPersonName(), c.getPersonMobile(), c.getAddress(), ulb);
+                    contactService.updateContact(contact);
+                    responce = "Contact Updated";
+                    return new ResponseEntity<StringResponce>(new StringResponce(responce), HttpStatus.OK);
+                } else {
+                    responce = "Contact not exists";
+                    return new ResponseEntity<StringResponce>(new StringResponce(responce), HttpStatus.UNAUTHORIZED);
+                }
+
+            } else {
+                responce = "Ulb not exists";
                 return new ResponseEntity<StringResponce>(new StringResponce(responce), HttpStatus.UNAUTHORIZED);
             }
-
         }
         else {
-            responce = "Ulb not exists";
+            responce = "Parameters missing";
             return new ResponseEntity<StringResponce>(new StringResponce(responce), HttpStatus.UNAUTHORIZED);
         }
     }
