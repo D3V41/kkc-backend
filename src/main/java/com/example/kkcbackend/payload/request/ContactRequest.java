@@ -7,10 +7,15 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 public class ContactRequest {
+    @NotNull
     private Long id;
+    @NotNull
     private String personName;
+    @NotNull
     private Long personMobile;
+    @NotNull
     private String address;
+    @NotNull
     private String ulbName;
 
     public ContactRequest(Long id, String personName, Long personMobile, String address, String ulbName) {

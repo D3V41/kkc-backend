@@ -30,19 +30,24 @@ public class ContactController {
     @PostMapping
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> addContact(@Valid @NotNull @RequestBody ContactRequest c){
-        Boolean flag = contactService.checkPersonExistsByMobile(c.getPersonMobile());
-        Ulb ulb = ulbService.findByUlbName(c.getUlbName());
         String responce;
-        if(flag){
-            Contact contact = new Contact(c.getPersonName(),c.getPersonMobile(),c.getAddress(),ulb);
+        if(c.getAddress()!=null && c.getUlbName()!=null && c.getPersonName()!=null && c.getPersonMobile()!=null){
+            Boolean flag = contactService.checkPersonExistsByMobile(c.getPersonMobile());
+            Ulb ulb = ulbService.findByUlbName(c.getUlbName());
+            if (flag) {
+                Contact contact = new Contact(c.getPersonName(), c.getPersonMobile(), c.getAddress(), ulb);
                 contactService.insertPerson(contact);
                 responce = "Contact Added";
                 return new ResponseEntity<StringResponce>(new StringResponce(responce), HttpStatus.OK);
 
+            } else {
+                responce = "Contact exists";
+                return new ResponseEntity<StringResponce>(new StringResponce(responce), HttpStatus.UNAUTHORIZED);
+            }
         }
         else {
-            responce = "Contact exists";
-            return new ResponseEntity<StringResponce >(new StringResponce(responce), HttpStatus.UNAUTHORIZED);
+            responce = "Parameter missing";
+            return new ResponseEntity<StringResponce>(new StringResponce(responce), HttpStatus.UNAUTHORIZED);
         }
     }
 
