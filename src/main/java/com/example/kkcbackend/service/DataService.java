@@ -46,8 +46,10 @@ public class DataService {
 
     public List<StatusResponce> extractStatus(List<Object[]> list){
         List<StatusResponce> list2 = new ArrayList<>();
+        int i=1;
         for (Object[] obj : list){
             StatusResponce statusResponce = new StatusResponce();
+            statusResponce.setSrNo(i++);
             statusResponce.setTimestamp((Date) obj[0]);
             statusResponce.setZone((String) obj[1]);
             statusResponce.setWard((int) obj[2]);

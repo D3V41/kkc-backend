@@ -3,6 +3,7 @@ package com.example.kkcbackend.payload.responce;
 import java.util.Date;
 
 public class StatusResponce {
+    int srNo;
     Date timestamp;
     String zone;
     int ward;
@@ -33,7 +34,32 @@ public class StatusResponce {
         this.totalloadwattage = totalloadwattage;
     }
 
+    public StatusResponce(int srNo, Date timestamp, String zone, int ward, String roadName, int unitId, Boolean status, String onTime, String offTime, float kwh, float iTotal, float kwTotal, String eventType, float totalloadwattage) {
+        this.srNo = srNo;
+        this.timestamp = timestamp;
+        this.zone = zone;
+        this.ward = ward;
+        this.roadName = roadName;
+        this.unitId = unitId;
+        this.status = status;
+        this.onTime = onTime;
+        this.offTime = offTime;
+        this.kwh = kwh;
+        this.iTotal = iTotal;
+        this.kwTotal = kwTotal;
+        this.eventType = eventType;
+        this.totalloadwattage = totalloadwattage;
+    }
+
     public StatusResponce() {
+    }
+
+    public int getSrNo() {
+        return srNo;
+    }
+
+    public void setSrNo(int srNo) {
+        this.srNo = srNo;
     }
 
     public Date getTimestamp() {

@@ -28,6 +28,9 @@ public class Ulb {
     @OneToMany(mappedBy = "ulb",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     private List<Unit> units;
 
+    @OneToMany(mappedBy = "ulb",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    private List<Contact> contacts;
+
     public Ulb() {
     }
 

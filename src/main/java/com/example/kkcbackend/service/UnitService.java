@@ -62,13 +62,13 @@ public class UnitService {
         return list2;
     }
 
-    public List<MapviewResponce> getMapviewList(int phase){
-        List<Object[]> list = unitDao.getMapviewList(phase);
+    public List<MapviewResponce> getMapviewList(int phase,String ulbname){
+        List<Object[]> list = unitDao.getMapviewList(phase,ulbname);
         return extractMapData(list);
     }
 
-    public List<MapviewResponce> getMapviewListAllPhase(){
-        List<Object[]> list = unitDao.getMapviewListAllPhase();
+    public List<MapviewResponce> getMapviewListAllPhase(String ulbname){
+        List<Object[]> list = unitDao.getMapviewListAllPhase(ulbname);
         return extractMapData(list);
     }
 

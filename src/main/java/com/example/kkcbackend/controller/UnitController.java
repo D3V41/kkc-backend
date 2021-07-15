@@ -107,15 +107,15 @@ public class UnitController {
         }
     }
 
-    @GetMapping(path = "mapview/{phase}")
+    @GetMapping(path = "mapview/{phase}/{ulbname}")
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<? extends Object> getData(@PathVariable("phase") int phase){
+    public ResponseEntity<? extends Object> getData(@PathVariable("phase") int phase,@PathVariable("ulbname")String ulbname){
         List<MapviewResponce> list;
         if(phase == 1 || phase == 3) {
-            list = unitService.getMapviewList(phase);
+            list = unitService.getMapviewList(phase,ulbname);
         }
         else {
-            list = unitService.getMapviewListAllPhase();
+            list = unitService.getMapviewListAllPhase(ulbname);
         }
         if(!list.isEmpty()){
             return new ResponseEntity<List<MapviewResponce>>(list,HttpStatus.OK);

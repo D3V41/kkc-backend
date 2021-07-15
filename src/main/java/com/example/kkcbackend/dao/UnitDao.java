@@ -52,10 +52,11 @@ public interface UnitDao extends JpaRepository<Unit,Long> {
 
     @Query(value = "SELECT u.unitId, u.roadName, u.latitude, u.longitude " +
             "FROM Unit u " +
-            "WHERE u.phase = :phase")
-    List<Object[]> getMapviewList(int phase);
+            "WHERE u.phase = :phase AND u.ulb.ulbName = :ulbname")
+    List<Object[]> getMapviewList(int phase,String ulbname);
 
     @Query(value = "SELECT u.unitId, u.roadName, u.latitude, u.longitude " +
-            "FROM Unit u")
-    List<Object[]> getMapviewListAllPhase();
+            "FROM Unit u " +
+            "WHERE u.ulb.ulbName = :ulbname")
+    List<Object[]> getMapviewListAllPhase(String ulbname);
 }
